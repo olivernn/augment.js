@@ -16,7 +16,7 @@ if (!Array.prototype.indexOf) {
       n = Number(arguments[1]);
       if (n !== n) // shortcut for verifying if it's NaN
         n = 0;
-      else if (n !== 0 && n !== (1 / 0) && n !== -(1 / 0))
+      else if (n !== 0 && n !== (Infinity) && n !== -(Infinity))
         n = (n > 0 || -1) * Math.floor(Math.abs(n));
     }
 
