@@ -6,10 +6,4 @@ It will only add methods that are not already existing, and augment.js always fa
 
 ## Usage
 
-Augment.js can be used in two ways:
-
-* Auto - All missing 1.8.5 methods are added by augment.js
-
-## API
-
-When using the Auto version of augment.js you only need to include the script to take advantage of the latest JavaScript features.
+Just include the file.
