@@ -38,7 +38,9 @@ class Bundler
           augment.array.reduce
           augment.array.reduceRight
           augment.array.some
+          augment.function.bind
           augment.object.keys
+          augment.string.trim
         )
       end
 
