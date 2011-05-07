@@ -32,7 +32,11 @@ Include the minified source in your page before any JavaScript in which you wish
 
 * [Array.prototype.some](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/some) - Tests whether some element in the array passes the test implemented by the provided function.
 
+* [Function.prototype.bind](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/bind) - Creates a new function that, when called, itself calls this function in the context of the provided this value, with a given sequence of arguments preceding any provided when the new function was called.
+
 * [Object.keys](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/keys) - Returns an array of all own enumerable properties found upon a given object, in the same order as that provided by a for-in loop (the difference being that a for-in loop enumerates properties in the prototype chain as well).
+
+* String.prototype.trim - Trims whitespace from the beginning and end of the string
 
 ## Credits
 
