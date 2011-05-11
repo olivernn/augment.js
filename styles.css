@@ -75,6 +75,20 @@ article {
   padding-bottom: 20px;
 }
 
+footer {
+  padding: 10px;
+  background-color: black;
+}
+
+footer ul {
+  padding-left: 40px;
+}
+
+footer li {
+  padding-right: 20px;
+  display: inline;
+}
+
 .intro {
   background-color: #DD3824;
 }
