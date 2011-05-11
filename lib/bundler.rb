@@ -38,6 +38,9 @@ class Bundler
           augment.array.reduce
           augment.array.reduceRight
           augment.array.some
+          augment.date.now
+          augment.date.toJSON
+          augment.date.toUTCString
           augment.function.bind
           augment.object.keys
           augment.string.trim
