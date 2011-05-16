@@ -15,3 +15,9 @@ test("should not modify the string", function () {
   a.trim()
   equal("   foo   ", a, "should not modify the string")
 })
+
+test("should not remove any whitespace from anywhere else in the string", function () {
+  var str = "   Hello World!    "
+
+  equal("Hello World!", str.trim(), "should not remove any whitespace inside the string")
+})
