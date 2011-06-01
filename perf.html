@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Augment Performance Tests</title>
+
+  </head>
+
+  <body>
+    <div id="results"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <!-- Tests -->
+    <script>
+
+      var trim1Left  = /^\s+/,
+          trim1Right = /\s+$/,
+
+          trim2Left  = /^\s\s*/,
+          trim2Right = /\s\s*$/
+
+      var trim1 = function (s) {
+        return s.replace(trim1Left, "").replace(trim1Right, "")
+      }
+
+      var trim2 = function (s) {
+        return s.replace(trim2Left, "").replace(trim2Right, "")
+      }
+
+      var trim3 = function (s) {
+        var s = s.replace(trim2Left, ''),
+            ws = /\s/,
+            i = s.length;
+
+          while (ws.test(s.charAt(--i)));
+          return s.slice(0, i + 1);
+      }
+
+      var perf = function (name, fn, n) {
+        var n = n || 10000
+        var t1 = new Date ()
+        for (var i=0; i < n; i++) {
+          fn()
+        };
+        var t2 = new Date ()
+
+        var out = $("<p></p>", {
+          text: [name, t2 - t1 + "ms"].join(" ")
+        })
+
+        $('#results').append(out)
+      }
+
+      var s1 = "                    askljdfhalsjdflas dfljaghsdlfja sdljfhgasl dkjfasgldjkfgasld         "
+      var s2 = "lajsdhflaskjhd asljdhfbasljdhgf alsjdhgfalsjdhfg lasd fas                                "
+      var s3 = "                          laskdfhjlaskjdhflaskjd aslkdjjfhasl falksdj flasdjhf asldkjhlkf"
+      var s4 = "a aslidu qdsbajhbourye vhiadfbv qy8egvuehfb ,jdfu ypoqe evdjhf lq3u viibfhdb qge iuqerblk"
+
+      perf("trim1 total", function () {
+        perf("trim1 with s1", function () {
+          trim1(s1)
+        })
+
+        perf("trim1 with s2", function () {
+          trim1(s2)
+        })
+
+        perf("trim1 with s3", function () {
+          trim1(s3)
+        })
+
+        perf("trim1 with s4", function () {
+          trim1(s4)
+        })
+      }, 1)
+
+      perf("trim2 total", function () {
+        perf("trim2 with s1", function () {
+          trim2(s1)
+        })
+
+        perf("trim2 with s2", function () {
+          trim2(s2)
+        })
+
+        perf("trim2 with s3", function () {
+          trim2(s3)
+        })
+
+        perf("trim2 with s4", function () {
+          trim2(s4)
+        })
+      }, 1)
+
+      perf("trim3 total", function () {
+        perf("trim3 with s1", function () {
+          trim3(s1)
+        })
+
+        perf("trim3 with s2", function () {
+          trim3(s2)
+        })
+
+        perf("trim3 with s3", function () {
+          trim3(s3)
+        })
+
+        perf("trim3 with s4", function () {
+          trim3(s4)
+        })
+      }, 1)
+
+    </script>
+  </body>
+</html>
