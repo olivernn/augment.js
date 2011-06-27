@@ -40,7 +40,7 @@ class Bundler
           augment.array.some
           augment.date.now
           augment.date.toJSON
-          augment.date.toUTCString
+          augment.date.toISOString
           augment.function.bind
           augment.object.keys
           augment.string.trim

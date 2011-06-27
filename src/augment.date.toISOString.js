@@ -1,8 +1,8 @@
-if (!Date.prototype.toUTCString) {
-  Date.prototype.toUTCString = (function () {
+if (!Date.prototype.toISOString) {
+  Date.prototype.toISOString = (function () {
 
     var pad = function (n) {
-      return (n = n + "", n.length == 2) ? n : "0" + n
+      return (n = n + "", n.length === 2) ? n : "0" + n;
     }
 
     return function () {
