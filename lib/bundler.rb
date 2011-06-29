@@ -28,22 +28,22 @@ class Bundler
     private
       def files
         @files ||= %w(
-          augment.array.every
-          augment.array.filter
-          augment.array.forEach
-          augment.array.indexOf
-          augment.array.isArray
-          augment.array.lastIndexOf
-          augment.array.map
-          augment.array.reduce
-          augment.array.reduceRight
-          augment.array.some
-          augment.date.now
-          augment.date.toJSON
-          augment.date.toISOString
-          augment.function.bind
-          augment.object.keys
-          augment.string.trim
+          augment.array.every.js
+          augment.array.filter.js
+          augment.array.forEach.js
+          augment.array.indexOf.js
+          augment.array.isArray.js
+          augment.array.lastIndexOf.js
+          augment.array.map.js
+          augment.array.reduce.js
+          augment.array.reduceRight.js
+          augment.array.some.js
+          augment.date.now.js
+          augment.date.toJSON.js
+          augment.date.toISOString.js
+          augment.function.bind.js
+          augment.object.keys.js
+          augment.string.trim.js
         )
       end
 
