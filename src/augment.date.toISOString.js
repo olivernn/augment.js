@@ -7,9 +7,12 @@ if (!Date.prototype.toISOString) {
     }
 
     return function () {
-      var year = [this.getUTCFullYear(), pad(this.getUTCMonth() + 1), pad(this.getUTCDate())].join("-")
+      var year = this.getUTCFullYear()
+      year = (year < 0 ? '-' : (year > 9999 ? '+' : '')) + ('00000' + Math.abs(year)).slice(0 <= year && year <= 9999 ? -4 : -6);
+
+      var date = [year, pad(this.getUTCMonth() + 1), pad(this.getUTCDate())].join("-")
       var time = [pad(this.getUTCHours()), pad(this.getUTCMinutes()), pad(this.getUTCSeconds())].join(":") + "." + pad(this.getUTCMilliseconds(), 3)
-      return [year, time].join("T") + "Z"
+      return [date, time].join("T") + "Z"
     }
   })()
 };
