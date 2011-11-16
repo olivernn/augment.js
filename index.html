@@ -5,9 +5,10 @@
 
     <!-- dependencies -->
     <script src="/test/env/jquery.js" type="text/javascript" charset="utf-8"></script>
-
-    <!-- QUnit -->
+    <script src="/test/env/sinon-1.1.1.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/test/env/sinon-ie-1.1.1.js" type="text/javascript" charset="utf-8"></script>
     <script src="/test/env/qunit.js"></script>
+    <script src="/test/env/test_helper.js" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" href="/test/env/qunit.css" type="text/css" media="screen" />
 
     <!-- augment -->
@@ -22,7 +23,7 @@
     <script src="/src/augment.array.reduceRight.js"></script>
     <script src="/src/augment.array.some.js"></script>
     <script src="/src/augment.date.toJSON.js"></script>
-    <script src="/src/augment.date.toUTCString.js"></script>
+    <script src="/src/augment.date.toISOString.js"></script>
     <script src="/src/augment.object.keys.js"></script>
     <script src="/src/augment.object.getPrototypeOf.js"></script>
     <script src="/src/augment.function.bind.js"></script>
@@ -43,6 +44,7 @@
     <script src="/test/bind_test.js"></script>
     <script src="/test/trim_test.js"></script>
     <script src="/test/getPrototypeOf_test.js"></script>
+    <script src="/test/toISOString_test.js"></script>
 
   </head>
   <body>
