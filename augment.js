@@ -1,4 +1,4 @@
-// augment.js JavaScript 1.8.5 methods for all, version: 0.2.1
+// augment.js JavaScript 1.8.5 methods for all, version: 0.4.0
 // using snippets from Mozilla - https://developer.mozilla.org/en/JavaScript
 // (c) 2011 Oliver Nightingale
 //
@@ -282,22 +282,26 @@ if (!Date.now) {
     return +new Date();
   };
 }
-if (!Date.prototype.toJSON) {
-  Date.prototype.toJSON = Date.prototype.toJSON
-};
-if (!Date.prototype.toUTCString) {
-  Date.prototype.toUTCString = (function () {
+if (!Date.prototype.toISOString) {
+  Date.prototype.toISOString = (function () {
 
-    var pad = function (n) {
-      return (n = n + "", n.length == 2) ? n : "0" + n
+    var pad = function (n, length) {
+      length = length || 2
+      return (n = n + "", n.length === length) ? n : pad("0" + n, length);
     }
 
     return function () {
-      var year = [this.getUTCFullYear(), pad(this.getUTCMonth() + 1), pad(this.getUTCDate())].join("-")
-      var time = [pad(this.getUTCHours()), pad(this.getUTCMinutes()), pad(this.getUTCSeconds())].join(":") + "." + this.getMilliseconds()
-      return [year, time].join("T") + "Z"
+      var year = this.getUTCFullYear()
+      year = (year < 0 ? '-' : (year > 9999 ? '+' : '')) + ('00000' + Math.abs(year)).slice(0 <= year && year <= 9999 ? -4 : -6);
+
+      var date = [year, pad(this.getUTCMonth() + 1), pad(this.getUTCDate())].join("-")
+      var time = [pad(this.getUTCHours()), pad(this.getUTCMinutes()), pad(this.getUTCSeconds())].join(":") + "." + pad(this.getUTCMilliseconds(), 3)
+      return [date, time].join("T") + "Z"
     }
   })()
+};
+if (!Date.prototype.toJSON) {
+  Date.prototype.toJSON = Date.prototype.toJSON
 };
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/bind
 if ( !Function.prototype.bind ) {
@@ -319,6 +323,26 @@ if ( !Function.prototype.bind ) {
     return bound;
   };
 }
+;(function () { "use strict"
+
+  var ensureIsObject = function (param) {
+    if (param !== Object(param)) throw new TypeError('Object.getPrototypeOf called on non-object');
+  }
+
+  if (!Object.getPrototypeOf) {
+    if (typeof "test".__proto__ === "object") {
+      Object.getPrototypeOf = function (obj) {
+        ensureIsObject(obj)
+        return obj.__proto__
+      }
+    } else {
+      Object.getPrototypeOf = function (obj) {
+        ensureIsObject(obj)
+        return obj.constructor.prototype
+      }
+    };
+  };
+})();
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/keys
 if(!Object.keys) {
   Object.keys = function(o){
@@ -329,7 +353,6 @@ if(!Object.keys) {
    return ret;
   }
 }
-
 if (!String.prototype.trim) {
   String.prototype.trim = (function () {
 
