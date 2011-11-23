@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+
+* Add `Object.getPrototypeOf` method - closes [issue](https://github.com/olivernn/augment.js/issues/6)
+* Change build system to remove dependencies on ruby
+* Change build system to use uglify.js as the minimizer
+
 ## 0.3.1
 
 * Fix [issue](https://github.com/olivernn/augment.js/issues/8) with Date.prototype.toISOString handling of years less than 0 and greater than 9999, reported by [Yaffle](https://github.com/Yaffle)
