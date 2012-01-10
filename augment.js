@@ -1,4 +1,4 @@
-// augment.js JavaScript 1.8.5 methods for all, version: 0.4.0
+// augment.js JavaScript 1.8.5 methods for all, version: 0.4.1
 // using snippets from Mozilla - https://developer.mozilla.org/en/JavaScript
 // (c) 2011 Oliver Nightingale
 //
@@ -312,7 +312,7 @@ if ( !Function.prototype.bind ) {
         self = this, 
         nop = function () {}, 
         bound = function () {
-          return self.apply( this instanceof nop ? this : ( obj || {} ), 
+          return self.apply( nop.prototype && this instanceof nop ? this : ( obj || {} ), 
                               args.concat( slice.call(arguments) ) );    
         };
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.1
+
+* Fix [issue](https://github.com/olivernn/augment.js/pull/9) with Function.prototype.bind when being called on native functions in Safari.  Thanks [nciagra](https://github.com/nciagra).
+
 ## 0.4.0
 
 * Add `Object.getPrototypeOf` method - closes [issue](https://github.com/olivernn/augment.js/issues/6)
