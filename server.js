@@ -39,7 +39,8 @@ http.createServer(function(req, res){
       if (err) return error();
       if (stat.isDirectory()) path = join(path, 'index.html');
       res.setHeader('Cache-Control', 'no-cache');
-      res.setHeader('Content-Type', mime[path.split('.')[1]] || 'application/octet-stream');
+      var parts = path.split('.')
+      res.setHeader('Content-Type', mime[parts[parts.length - 1]] || 'application/octet-stream');
       fs.createReadStream(path).pipe(res);
     });
   })
