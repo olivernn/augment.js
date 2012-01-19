@@ -31,3 +31,13 @@ test("setting where to search from in the array", function () {
   index = a.indexOf(2, 10)
   equal(-1, index, "should return -1 when starting searching beyond the array's bounds")
 })
+
+test("negative search index", function () {
+  var a = [1,2,3], index
+
+  index = a.indexOf(3, -4)
+  equal(2, index)
+
+  index = a.indexOf(1, -1)
+  equal(-1, index)
+})

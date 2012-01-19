@@ -59,3 +59,10 @@ test("setting the context of the callback function", function () {
 
   same(self, context, "should be able to set the context of the function")
 })
+
+test("skipping non existent indexes", function () {
+  var a = [,,,,,,,,], count = 0
+  a.filter(function () { count++ })
+
+  equal(0, count, 'should skip non existent indexes')
+})

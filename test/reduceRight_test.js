@@ -42,3 +42,9 @@ test("arguments that are passed to the function", function () {
   same(array, a, "the array being reduced should be passed as the fourth argument")
 })
 
+test("skipping non existent indexes", function () {
+  var a = [,,,,,,,,], count = 0
+  a.reduceRight(function () { count++ }, {})
+
+  equal(0, count, 'should skip non existent indexes')
+})

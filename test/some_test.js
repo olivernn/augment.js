@@ -27,3 +27,10 @@ test("should return false if the function evaluates to false for all elements", 
   ok(!result, "should return false if the function evaluates to false")
   equal(3, count, "should stop iterating as soon as the function returns true")
 })
+
+test("skipping non existent indexes", function () {
+  var a = [,,,,,,,,], count = 0
+  a.some(function () { count++ })
+
+  equal(0, count, 'should skip non existent indexes')
+})
