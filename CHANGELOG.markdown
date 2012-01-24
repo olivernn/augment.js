@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.2
+
+* Resolve [issue](https://github.com/olivernn/augment.js/issues/12) where Function.prototype.bind deviates from the spec.  Thanks [raynos](https://github.com/raynos)
+* Fix [issue](https://github.com/olivernn/augment.js/issues/11) where the Object.keys implementation gets caught out by the [Don't Enum](https://developer.mozilla.org/en/ECMAScript_DontEnum_attribute) bug.  Thanks [raynos](https://github.com/raynos)
+
 ## 0.4.1
 
 * Fix [issue](https://github.com/olivernn/augment.js/pull/9) with Function.prototype.bind when being called on native functions in Safari.  Thanks [nciagra](https://github.com/nciagra).
