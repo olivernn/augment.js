@@ -64,4 +64,6 @@ else
   cat lib/header.js $files | sed "s/@VERSION/${version}/"
 fi
 
+cat lib/component.json.template | sed "s/@VERSION/${version}/" > component.json
+
 shopt -u extglob
