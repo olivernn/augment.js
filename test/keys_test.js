@@ -1,17 +1,17 @@
-module("keys")
+module("Object.keys")
 
 test("getting the keys from an object", function () {
   var obj = {"a": 1, "b": 2},
       keys = Object.keys(obj)
 
-  same(["a", "b"], keys, "should get all the keys from an object")
+  deepEqual(["a", "b"], keys, "should get all the keys from an object")
 })
 
 test("getting all the keys from an array", function () {
   var arr = [1, 2, 3],
       keys = Object.keys(arr)
 
-  same(["0", "1", "2"], keys, "should get all the keys from an array")
+  deepEqual(["0", "1", "2"], keys, "should get all the keys from an array")
 })
 
 test("only get own properties", function () {
@@ -28,7 +28,7 @@ test("only getting enumerable properties", function () {
       keys = Object.keys(obj),
       props = []
 
-  for (prop in obj) props.push(prop)
+  for (var prop in obj) props.push(prop)
 
   for (var i=0; i < keys.length; i++) {
     ok(~props.indexOf(keys[i]))
@@ -97,5 +97,5 @@ test("watch out for the dont enum bug", function () {
     'unique'
   ]
 
-  same(expected.sort(), Object.keys(obj).sort(), 'should have all the object keys from the object')
+  deepEqual(expected.sort(), Object.keys(obj).sort(), 'should have all the object keys from the object')
 })

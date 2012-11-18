@@ -1,4 +1,4 @@
-module("some")
+module("Array.prototype.some")
 
 test("should return true if the function evaluates to true", function () {
   var a = [1,2,3],

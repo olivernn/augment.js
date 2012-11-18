@@ -1,4 +1,4 @@
-module("bind")
+module("Function.prototype.bind")
 
 test("changing the context of a function", function () {
   var x = 0
@@ -26,7 +26,7 @@ test("safari has problems with using bind on native functions", function () {
   }
 
   foo(1,2,3,4)
-  same(args, [1,2,3,4])
+  deepEqual(args, [1,2,3,4])
 })
 
 test("calling bind on a non function", function () {
@@ -47,7 +47,7 @@ test("binds properly without a context", function () {
 
   obj.fn()
 
-  same(context, global)
+  deepEqual(context, global)
 })
 
 test("binds properly without a context, and still supplies bound arguments", function () {
@@ -61,8 +61,8 @@ test("binds properly without a context, and still supplies bound arguments", fun
   }.bind(undefined, 1,2,3)
 
   obj.fn(1,2,3)
-  same(a, [1,2,3,1,2,3])
-  same(context, global)
+  deepEqual(a, [1,2,3,1,2,3])
+  deepEqual(context, global)
 })
 
 test("binds a context properly", function () {
@@ -74,7 +74,7 @@ test("binds a context properly", function () {
   }
 
   obj.fn.bind("foo").call()
-  same(context, "foo")
+  deepEqual(context, "foo")
 })
 
 test("binds a context and supplies bound arguments", function () {
@@ -89,8 +89,8 @@ test("binds a context and supplies bound arguments", function () {
 
   var boundFn = obj.fn.bind("foo", 1,2,3)
   boundFn(4,5,6)
-  same(context, "foo")
-  same(args, [1,2,3,4,5,6])
+  deepEqual(context, "foo")
+  deepEqual(args, [1,2,3,4,5,6])
 })
 
 test("returns properly without binding a context", function () {
@@ -102,7 +102,7 @@ test("returns properly without binding a context", function () {
   }.bind()
 
   var ctx = obj.fn()
-  same(ctx, global)
+  deepEqual(ctx, global)
 })
 
 test("returns properly without binding a context and still supplies bound arguments", function () {
@@ -116,8 +116,8 @@ test("returns properly without binding a context and still supplies bound argume
   }.bind(undefined, 1,2,3)
 
   args = obj.fn(4,5,6)
-  same(args, [1,2,3,4,5,6])
-  same(ctx, global)
+  deepEqual(args, [1,2,3,4,5,6])
+  deepEqual(ctx, global)
 })
 
 test("returns properly while binding a context", function () {
@@ -131,7 +131,7 @@ test("returns properly while binding a context", function () {
 
   obj.fn = fn.bind(arr)
   ret = obj.fn(1,2,3)
-  same(ret, arr)
+  deepEqual(ret, arr)
 })
 
 test("returns properly while binding a context and supplies bound arguments", function () {
@@ -145,7 +145,7 @@ test("returns properly while binding a context and supplies bound arguments", fu
 
   obj.fn = fn.bind(arr, 1,2,3)
   ret = obj.fn(4,5,6)
-  same(ret, arr)
+  deepEqual(ret, arr)
 })
 
 test("passes the correct arguments as a constructor", function () {
@@ -155,7 +155,7 @@ test("passes the correct arguments as a constructor", function () {
   }.bind({name: 'wrong'})
 
   ret = new obj.Fn (expected)
-  same(ret, expected)
+  deepEqual(ret, expected)
 })
 
 test("returns the return value of the bound function when called as a constructor", function () {
@@ -165,7 +165,7 @@ test("returns the return value of the bound function when called as a constructo
   }.bind(null)
 
   var result = new Subject
-  same(result, arr)
+  deepEqual(result, arr)
 })
 
 test("returns the correct value if constructor returns primitive", function () {

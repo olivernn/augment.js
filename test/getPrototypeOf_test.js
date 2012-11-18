@@ -1,4 +1,4 @@
-module("getPrototypeOf")
+module("Object.getPrototypeOf")
 
 test("returns the prototype of an object", function () {
   var Foo = function () {}
@@ -9,7 +9,7 @@ test("returns the prototype of an object", function () {
 
   var foo = new Foo ()
 
-  same(Object.getPrototypeOf(foo), Foo.prototype, "should return the prototype of an object")
+  deepEqual(Object.getPrototypeOf(foo), Foo.prototype, "should return the prototype of an object")
 })
 
 test("returns the prototype of an object with prototype prototypes set individually", function () {
@@ -18,7 +18,7 @@ test("returns the prototype of an object with prototype prototypes set individua
 
   var foo = new Foo
 
-  same(Object.getPrototypeOf(foo), Foo.prototype, "should return the prototype of an object")
+  deepEqual(Object.getPrototypeOf(foo), Foo.prototype, "should return the prototype of an object")
 })
 
 test("throws a TypeError if called on a non object", function () {

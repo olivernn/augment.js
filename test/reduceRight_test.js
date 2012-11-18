@@ -1,4 +1,4 @@
-module("reduceRight")
+module("Array.prototype.reduceRight")
 
 test("reducing an array", function () {
   var a = [1,2,3],
@@ -39,7 +39,7 @@ test("arguments that are passed to the function", function () {
   equal(1, previousValue, "the previous value should be 0 initially and be the first argument to the function")
   equal(2, currentValue, "the current value should be 1 and be the second argument to the function")
   equal(1, index, "the index should be the third argument passed to the function")
-  same(array, a, "the array being reduced should be passed as the fourth argument")
+  deepEqual(array, a, "the array being reduced should be passed as the fourth argument")
 })
 
 test("skipping non existent indexes", function () {

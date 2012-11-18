@@ -1,4 +1,4 @@
-module("isArray")
+module("Array.isArray")
 
 test("things that are arrays", function () {
   var empty = [];

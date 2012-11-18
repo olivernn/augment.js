@@ -1,4 +1,4 @@
-module("toISOString")
+module("Date.prototype.toISOString")
 
 // date has been stubbed with sinon
 var stubbedDate = function () {

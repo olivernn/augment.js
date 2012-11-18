@@ -1,4 +1,4 @@
-module("every")
+module("Array.prototype.every")
 
 test("where every element passes the test", function () {
   var a = [1,2,3]
@@ -43,7 +43,7 @@ test("arguments passed to the function", function () {
 
   equal(element, "foo", "should yield the element of the array as the first argument")
   equal(index, 0, "should yield the index of the item in the array as the second argument")
-  same(b, a, "should yeild the array being iterated as the third argument")
+  deepEqual(b, a, "should yeild the array being iterated as the third argument")
 })
 
 test("setting the context of the callback function", function () {
@@ -55,5 +55,5 @@ test("setting the context of the callback function", function () {
     self = this
   }, context)
 
-  same(self, context, "should be able to set the context of the function")
+  deepEqual(self, context, "should be able to set the context of the function")
 })

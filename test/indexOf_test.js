@@ -1,4 +1,4 @@
-module("indexOf")
+module("Array.prototype.indexOf")
 
 test("when the element can be found", function () {
   var a = [1,2,3],

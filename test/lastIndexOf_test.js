@@ -1,4 +1,4 @@
-module("lastIndexOf")
+module("Array.prototype.lastIndexOf")
 
 test("when the element can be found", function () {
   var a = [1,2,3],

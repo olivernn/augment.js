@@ -1,4 +1,4 @@
-module("filter")
+module("Array.prototype.filter")
 
 test("when the filter returns true", function () {
   var a = [1,2,3],
@@ -8,7 +8,7 @@ test("when the filter returns true", function () {
     return true
   })
 
-  same(a, result, "should only return elements of the array that the function returned true for")
+  deepEqual(a, result, "should only return elements of the array that the function returned true for")
 })
 
 test("whent he filter always returns false", function () {
@@ -19,7 +19,7 @@ test("whent he filter always returns false", function () {
     return false
   })
 
-  same([], result, "should only return elements of the array that the function returned true for")
+  deepEqual([], result, "should only return elements of the array that the function returned true for")
 })
 
 test("when the function returns false sometimes", function () {
@@ -30,7 +30,7 @@ test("when the function returns false sometimes", function () {
     return (element !== 3)
   })
 
-  same([1,2], result, "should only return elements of the array that the function returned true for")
+  deepEqual([1,2], result, "should only return elements of the array that the function returned true for")
 })
 
 test("arguments passed to the function", function () {
@@ -45,7 +45,7 @@ test("arguments passed to the function", function () {
 
   equal(element, "foo", "should yield the element of the array as the first argument")
   equal(index, 0, "should yield the index of the item in the array as the second argument")
-  same(b, a, "should yeild the array being iterated as the third argument")
+  deepEqual(b, a, "should yeild the array being iterated as the third argument")
 })
 
 test("setting the context of the callback function", function () {
@@ -57,7 +57,7 @@ test("setting the context of the callback function", function () {
     self = this
   }, context)
 
-  same(self, context, "should be able to set the context of the function")
+  deepEqual(self, context, "should be able to set the context of the function")
 })
 
 test("skipping non existent indexes", function () {

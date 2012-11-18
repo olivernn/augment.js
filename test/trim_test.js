@@ -1,4 +1,4 @@
-module("trim")
+module("String.prototype.trim")
 
 test("should remove white space from the begining & end of the string", function () {
   var a = "   foo   ",
