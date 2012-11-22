@@ -1,5 +1,3 @@
-QUnit.clock = null
-
 if (QUnit.urlParams.nonative) {
   delete Array.prototype.every
   delete Array.prototype.filter
@@ -18,14 +16,6 @@ if (QUnit.urlParams.nonative) {
   delete Object.getPrototypeOf
   delete Object.keys
   delete String.prototype.trim
-}
-
-QUnit.moduleStart = function (module) {
-  if (module.name === "Date.prototype.toISOString") QUnit.clock = sinon.useFakeTimers()
-}
-
-QUnit.moduleEnd = function (module) {
-  if (module.name === "Date.prototype.toISOString") QUnit.clock.restore()
 }
 
 QUnit.config.urlConfig.push({
