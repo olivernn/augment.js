@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.0
+
+* Several performance related tweaks.
+* More reliable testing of date related functions.
+* Upgrade qunit.
+
 ## 0.4.2
 
 * Resolve [issue](https://github.com/olivernn/augment.js/issues/12) where Function.prototype.bind deviates from the spec.  Thanks [raynos](https://github.com/raynos)

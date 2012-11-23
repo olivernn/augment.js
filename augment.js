@@ -1,4 +1,4 @@
-// augment.js JavaScript 1.8.5 methods for all, version: 0.4.2
+// augment.js JavaScript 1.8.5 methods for all, version: 1.0.0
 // using snippets from Mozilla - https://developer.mozilla.org/en/JavaScript
 // (c) 2011 Oliver Nightingale
 //
@@ -6,281 +6,264 @@
 //
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/every
 if (!Array.prototype.every) {
-  Array.prototype.every = function(fun /*, thisp */) {
-    "use strict";
+  Array.prototype.every = function(fn, ctx) {
 
-    if (this === void 0 || this === null)
-      throw new TypeError();
+    if (this === void 0 || this === null || typeof fn !== "function") throw new TypeError
 
-    var t = Object(this);
-    var len = t.length >>> 0;
-    if (typeof fun !== "function")
-      throw new TypeError();
+    var t = Object(this),
+        len = t.length >>> 0,
+        noCtx = (ctx === void 0 || ctx === null)
 
-    var thisp = arguments[1];
     for (var i = 0; i < len; i++) {
-      if (i in t && !fun.call(thisp, t[i], i, t))
-        return false;
+      if (i in t) {
+        if (noCtx) {
+          if (!fn(t[i], i, t)) return false
+        } else {
+          if (!fn.call(ctx, t[i], i, t)) return false
+        }
+      }
     }
 
     return true;
   };
 }
-// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/filter
 if (!Array.prototype.filter) {
-  Array.prototype.filter = function(fun /*, thisp */) {
-    "use strict";
+  Array.prototype.filter = function(fn, ctx) {
 
-    if (this === void 0 || this === null)
-      throw new TypeError();
+    if (this === void 0 || this === null || typeof fn !== "function") throw new TypeError
 
-    var t = Object(this);
-    var len = t.length >>> 0;
-    if (typeof fun !== "function")
-      throw new TypeError();
+    var t = Object(this),
+        len = t.length >>> 0,
+        noCtx = (ctx === void 0 || ctx === null),
+        response = []
 
-    var res = [];
-    var thisp = arguments[1];
     for (var i = 0; i < len; i++) {
       if (i in t) {
-        var val = t[i]; // in case fun mutates this
-        if (fun.call(thisp, val, i, t))
-          res.push(val);
+        var val = t[i] // in case fn mutates this
+        if (noCtx) {
+          if (fn(t[i], i, t)) response.push(val)
+        } else {
+          if (fn.call(ctx, t[i], i, t)) response.push(val)
+        }
       }
     }
 
-    return res;
-  };
+    return response
+  }
 }
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/array/foreach
 if (!Array.prototype.forEach) {
-  Array.prototype.forEach = function(fun /*, thisp */) {
-    "use strict";
+  Array.prototype.forEach = function(fn, ctx) {
 
-    if (this === void 0 || this === null)
-      throw new TypeError();
+    if (this === void 0 || this === null || typeof fn !== "function") throw new TypeError
 
-    var t = Object(this);
-    var len = t.length >>> 0;
-    if (typeof fun !== "function")
-      throw new TypeError();
+    var t = Object(this),
+        len = t.length >>> 0,
+        noCtx = (ctx === void 0 || ctx === null)
 
-    var thisp = arguments[1];
     for (var i = 0; i < len; i++) {
-      if (i in t)
-        fun.call(thisp, t[i], i, t);
+      if (i in t) {
+        if (noCtx) {
+          fn(t[i], i, t)
+        } else {
+          fn.call(ctx, t[i], i, t)
+        }
+      }
     }
-  };
+  }
 }
-// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/indexOf
+
 if (!Array.prototype.indexOf) {
-  Array.prototype.indexOf = function(searchElement /*, fromIndex */) {
-    "use strict";
+  Array.prototype.indexOf = function(searchElement, fromIdx) {
 
-    if (this === void 0 || this === null)
-      throw new TypeError();
+    if (this === void 0 || this === null) throw new TypeError
 
-    var t = Object(this);
-    var len = t.length >>> 0;
-    if (len === 0)
-      return -1;
+    var t = Object(this),
+        len = t.length >>> 0,
+        hasFromIdx = (fromIdx !== void 0 && fromIdx !== null)
 
-    var n = 0;
-    if (arguments.length > 0) {
-      n = Number(arguments[1]);
-      if (n !== n) // shortcut for verifying if it's NaN
-        n = 0;
-      else if (n !== 0 && n !== (Infinity) && n !== -(Infinity))
-        n = (n > 0 || -1) * Math.floor(Math.abs(n));
+    if (len === 0) return -1
+
+    var n = 0
+
+    if (hasFromIdx) {
+      n = Number(fromIdx)
+
+      if (n !== n) { // shortcut for verifying if it is NaN
+        n = 0
+      } else if (n !== 0 && n !== Infinity && n !== -Infinity) {
+        n = (n > 0 || -1) * Math.floor(Math.abs(n))
+      }
     }
 
-    if (n >= len)
-      return -1;
+    if (n >= len) return -1
 
-    var k = n >= 0
-          ? n
-          : Math.max(len - Math.abs(n), 0);
+    var k = n >= 0 ? n : Math.max(len - Math.abs(n), 0)
 
     for (; k < len; k++) {
-      if (k in t && t[k] === searchElement)
-        return k;
+      if (k in t && t[k] === searchElement) return k
     }
-    return -1;
-  };
+    return -1
+  }
 }
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/isArray
 Array.isArray = Array.isArray || function(o) { return Object.prototype.toString.call(o) === '[object Array]'; };
-// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/lastIndexOf
 if (!Array.prototype.lastIndexOf) {
-  Array.prototype.lastIndexOf = function(searchElement /*, fromIndex*/) {
-    "use strict";
+  Array.prototype.lastIndexOf = function(searchElement, fromIdx) {
 
-    if (this === void 0 || this === null)
-      throw new TypeError();
+    if (this === void 0 || this === null) throw new TypeError()
 
-    var t = Object(this);
-    var len = t.length >>> 0;
-    if (len === 0)
-      return -1;
+    var t = Object(this),
+        len = t.length >>> 0,
+        hasFromIdx = (fromIdx !== void 0 && fromIdx !== null)
 
-    var n = len;
-    if (arguments.length > 1) {
-      n = Number(arguments[1]);
-      if (n !== n)
-        n = 0;
-      else if (n !== 0 && n !== (Infinity) && n !== -(Infinity))
-        n = (n > 0 || -1) * Math.floor(Math.abs(n));
+    if (len === 0) return -1
+
+    var n = len
+
+    if (hasFromIdx) {
+      n = Number(fromIdx)
+
+      if (n !== n) {
+        n = 0
+      } else if (n !== 0 && n !== (Infinity) && n !== -(Infinity)) {
+        n = (n > 0 || -1) * Math.floor(Math.abs(n))
+      }
     }
 
-    var k = n >= 0
-          ? Math.min(n, len - 1)
-          : len - Math.abs(n);
+    var k = n >= 0 ? Math.min(n, len - 1) : len - Math.abs(n)
 
     for (; k >= 0; k--) {
-      if (k in t && t[k] === searchElement)
-        return k;
+      if (k in t && t[k] === searchElement) return k
     }
-    return -1;
-  };
+
+    return -1
+  }
 }
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/map
 if (!Array.prototype.map) {
-  Array.prototype.map = function(fun /*, thisp */) {
-    "use strict";
+  Array.prototype.map = function(fn, ctx) {
 
-    if (this === void 0 || this === null)
-      throw new TypeError();
+    if (this === void 0 || this === null || typeof fn !== "function") throw new TypeError
 
-    var t = Object(this);
-    var len = t.length >>> 0;
-    if (typeof fun !== "function")
-      throw new TypeError();
+    var t = Object(this),
+        len = t.length >>> 0,
+        noCtx = (ctx === void 0 || ctx === null),
+        response = new Array (len)
 
-    var res = new Array(len);
-    var thisp = arguments[1];
     for (var i = 0; i < len; i++) {
-      if (i in t)
-        res[i] = fun.call(thisp, t[i], i, t);
+      if (i in t) {
+        if (noCtx) {
+          response[i] = fn(t[i], i, t)
+        } else {
+          response[i] = fn.call(ctx, t[i], i, t)
+        }
+      }
     }
 
-    return res;
+    return response
   };
 }
-// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/Reduce
 if (!Array.prototype.reduce) {
-  Array.prototype.reduce = function(fun /*, initialValue */) {
-    "use strict";
+  Array.prototype.reduce = function(fn, initialValue) {
 
-    if (this === void 0 || this === null)
-      throw new TypeError();
+    if (this === void 0 || this === null || typeof fn !== "function") throw new TypeError
 
-    var t = Object(this);
-    var len = t.length >>> 0;
-    if (typeof fun !== "function")
-      throw new TypeError();
+    var t = Object(this),
+        len = t.length >>> 0,
+        hasInitialValue =  (initialValue !== void 0 && initialValue !== null)
 
     // no value to return if no initial value and an empty array
-    if (len == 0 && arguments.length == 1)
-      throw new TypeError();
+    if (len == 0 && !hasInitialValue) throw new TypeError
 
-    var k = 0;
-    var accumulator;
-    if (arguments.length >= 2) {
-      accumulator = arguments[1];
+    var k = 0, accumulator
+
+    if (hasInitialValue) {
+      accumulator = initialValue
     } else {
       do {
         if (k in t) {
-          accumulator = t[k++];
-          break;
+          accumulator = t[k++]
+          break
         }
 
         // if array contains no values, no initial value to return
-        if (++k >= len)
-          throw new TypeError();
+        if (++k >= len) throw new TypeError
       }
-      while (true);
+      while (true)
     }
 
     while (k < len) {
-      if (k in t)
-        accumulator = fun.call(undefined, accumulator, t[k], k, t);
-      k++;
+      if (k in t) accumulator = fn(accumulator, t[k], k, t)
+      k++
     }
 
-    return accumulator;
-  };
+    return accumulator
+  }
 }
-// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/ReduceRight
 if (!Array.prototype.reduceRight) {
-  Array.prototype.reduceRight = function(callbackfn /*, initialValue */) {
-    "use strict";
+  Array.prototype.reduceRight = function(fn, initialValue) {
 
-    if (this === void 0 || this === null)
-      throw new TypeError();
+    if (this === void 0 || this === null || typeof fn !== "function") throw new TypeError
 
-    var t = Object(this);
-    var len = t.length >>> 0;
-    if (typeof callbackfn !== "function")
-      throw new TypeError();
+    var t = Object(this),
+        len = t.length >>> 0,
+        hasInitialValue = (initialValue !== void 0 && initialValue !== null)
 
     // no value to return if no initial value, empty array
-    if (len === 0 && arguments.length === 1)
-      throw new TypeError();
+    if (len == 0 && !hasInitialValue) throw new TypeError
 
-    var k = len - 1;
-    var accumulator;
-    if (arguments.length >= 2) {
-      accumulator = arguments[1];
+    var k = len - 1, accumulator
+
+    if (hasInitialValue) {
+      accumulator = initialValue
     } else {
       do {
         if (k in this) {
-          accumulator = this[k--];
-          break;
+          accumulator = t[k--]
+          break
         }
 
         // if array contains no values, no initial value to return
-        if (--k < 0)
-          throw new TypeError();
+        if (--k < 0) throw new TypeError
       }
-      while (true);
+      while (true)
     }
 
-    while (k >= 0) {
-      if (k in t)
-        accumulator = callbackfn.call(undefined, accumulator, t[k], k, t);
-      k--;
+    while (k--) {
+      if (k in t) accumulator = callbackfn(accumulator, t[k], k, t)
     }
 
-    return accumulator;
+    return accumulator
   };
 }
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/some
 if (!Array.prototype.some) {
-  Array.prototype.some = function(fun /*, thisp */) {
-    "use strict";
+  Array.prototype.some = function(fn, ctx) {
 
-    if (this === void 0 || this === null)
-      throw new TypeError();
+    if (this === void 0 || this === null || typeof fn !== "function") throw new TypeError
 
-    var t = Object(this);
-    var len = t.length >>> 0;
-    if (typeof fun !== "function")
-      throw new TypeError();
+    var t = Object(this),
+        len = t.length >>> 0,
+        noCtx = (ctx === void 0 || ctx === null)
 
-    var thisp = arguments[1];
     for (var i = 0; i < len; i++) {
-      if (i in t && fun.call(thisp, t[i], i, t))
-        return true;
+      if (i in t) {
+        if (noCtx) {
+          if (fn(t[i], i, t)) return true
+        } else {
+          if (fn.call(ctx, t[i], i, t)) return true
+        }
+      }
     }
 
     return false;
   };
 }
-// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/now
 if (!Date.now) {
-  Date.now = function now () {
-    return +new Date();
-  };
+  Date.now = function () {
+    return +new Date
+  }
 }
 if (!Date.prototype.toISOString) {
   Date.prototype.toISOString = (function () {
@@ -301,7 +284,14 @@ if (!Date.prototype.toISOString) {
   })()
 };
 if (!Date.prototype.toJSON) {
-  Date.prototype.toJSON = Date.prototype.toJSON
+  Date.prototype.toJSON = function () {
+    var t = Object(this),
+        toISO = t.toISOString
+
+    if (typeof toISO !== 'function') throw new TypeError
+
+    return toISO.call(t)
+  }
 };
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/bind
 if (!Function.prototype.bind ) {
