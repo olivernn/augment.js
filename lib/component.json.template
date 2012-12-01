@@ -1,0 +1,5 @@
+{
+  "name": "Augment.js",
+  "version": "@VERSION",
+  "main": "./augment.js"
+}
