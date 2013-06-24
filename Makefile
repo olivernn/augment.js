@@ -2,7 +2,7 @@ BOWER_COMPONENT = '{"name": "Augment.js", "version": "@VERSION", "main": "./augm
 
 VERSION = $(shell cat VERSION)
 
-all: augment.js augment.min.js bower
+all: augment.js augment.min.js bower.json
 
 augment.js:
 	./builder > $@
@@ -15,12 +15,12 @@ size: augment.min.js
 
 clean:
 	rm -f augment{.min,}.js
-	rm -f component.json
+	rm -f bower.json
 
 test:
 	@node server 8003
 
-bower:
-	echo $(BOWER_COMPONENT) | sed "s/@VERSION/${VERSION}/" > component.json
+bower.json:
+	echo $(BOWER_COMPONENT) | sed "s/@VERSION/${VERSION}/" > $@
 
 .PHONY: test clean
