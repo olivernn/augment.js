@@ -6,7 +6,7 @@ It combines the code snippets supplied by [Mozilla](https://developer.mozilla.or
 
 ## Docs
 
-For documentation and usage see the [Augment.js](http://augmentjs.com) docs site.
+For documentation and usage see the [Augment.js](http://olivernn.github.com/augment.js) docs site.
 
 ## Build
 
