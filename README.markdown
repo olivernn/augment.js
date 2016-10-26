@@ -8,12 +8,16 @@ It combines the code snippets supplied by [Mozilla](https://developer.mozilla.or
 
 For documentation and usage see the [Augment.js](http://olivernn.github.com/augment.js) docs site.
 
+
 ## Build
 
+Run `npm install`.
 You can create a custom build of Augment.js by using the builder script.  For more details run `./builder -h` from within the project directory.
+To publish in the npm registry, run `npm publish`.
 
 ## Contributing
 
+Run `npm install`.
 Run the tests suite with `make test` then open localhost:8003 in your browser. Hack, tests and open a pull request.
 
 ## Credits

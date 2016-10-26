@@ -4,12 +4,9 @@
  */
 
 var http = require('http')
-  , url = require('url')
-  , join = require('path').join
-  , exists = require('path').exists
-  , extname = require('path').extname
-  , join = require('path').join
   , fs = require('fs')
+  , url = require('url')
+  , path = require('path')
   , port = process.argv[2] || 8003;
 
 var mime = {
@@ -21,7 +18,7 @@ var mime = {
 http.createServer(function(req, res){
   console.log('  \033[90m%s \033[36m%s\033[m', req.method, req.url);
   var pathname = url.parse(req.url).pathname
-    , path = join(process.cwd(), pathname);
+    , filepath = path.join(process.cwd(), pathname);
 
   function notFound() {
     res.statusCode = 404;
@@ -33,16 +30,14 @@ http.createServer(function(req, res){
     res.end(err.message + "\n");
   }
 
-  exists(path, function(exists){
-    if (!exists) return notFound()
-    fs.stat(path, function(err, stat){
-      if (err) return error();
-      if (stat.isDirectory()) path = join(path, 'index.html');
-      res.setHeader('Cache-Control', 'no-cache');
-      var parts = path.split('.')
-      res.setHeader('Content-Type', mime[parts[parts.length - 1]] || 'application/octet-stream');
-      fs.createReadStream(path).pipe(res);
-    });
+  fs.stat(filepath, function(err, stat){
+    if (err) return error(err);
+    if (stat.isDirectory()) filepath = path.join(filepath, 'index.html');
+    else if (!stat.isFile()) return notFound();
+    res.setHeader('Cache-Control', 'no-cache');
+    var ext = filepath.split('.').pop();
+    res.setHeader('Content-Type', mime[ext] || 'application/octet-stream');
+    fs.createReadStream(filepath).pipe(res);
   })
 }).listen(port);
 
