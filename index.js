@@ -1,0 +1,17 @@
+require('./lib/augment.array.every');
+require('./lib/augment.array.filter');
+require('./lib/augment.array.forEach');
+require('./lib/augment.array.indexOf');
+require('./lib/augment.array.isArray');
+require('./lib/augment.array.lastIndexOf');
+require('./lib/augment.array.map');
+require('./lib/augment.array.reduce');
+require('./lib/augment.array.reduceRight');
+require('./lib/augment.array.some');
+require('./lib/augment.date.now');
+require('./lib/augment.date.toISOString');
+require('./lib/augment.date.toJSON');
+require('./lib/augment.function.bind');
+require('./lib/augment.object.getPrototypeOf');
+require('./lib/augment.object.keys');
+require('./lib/augment.string.trim');

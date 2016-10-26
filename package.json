@@ -1,0 +1,33 @@
+{
+  "name": "augment.js",
+  "version": "1.0.0",
+  "description": "Augment.js is a library that brings JavaScript 1.8.5 to any browser. It does this by augmenting built in types like `Array` and `Object`.",
+  "main": "index.js",
+  "directories": {
+    "test": "test",
+    "lib": "lib"
+  },
+  "files": [
+    "lib",
+    "augment.js",
+    "augment.min.js"
+  ],
+  "scripts": {
+    "start": "node server.js",
+    "build": "./builder > augment.js && ./builder -m > augment.min.js",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olivernn/augment.js.git"
+  },
+  "author": "Oliver Nightingale (https://github.com/olivernn)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/olivernn/augment.js/issues"
+  },
+  "homepage": "https://olivernn.github.io/augment.js/",
+  "devDependencies": {
+    "qunitjs": "^1.10.0"
+  }
+}
