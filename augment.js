@@ -1,9 +1,12 @@
-// augment.js JavaScript 1.8.5 methods for all, version: 1.0.0
-// using snippets from Mozilla - https://developer.mozilla.org/en/JavaScript
-// (c) 2011 Oliver Nightingale
-//
-//  Released under MIT license.
-//
+/**
+ *
+ * augment.js JavaScript 1.8.5 methods for all, version: 1.1.0
+ * using snippets from Mozilla - https://developer.mozilla.org/en/JavaScript
+ * (c) 2011 Oliver Nightingale
+ * (c) 2016 Patched by plugn@github.com
+ * Released under MIT license.
+ */
+
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/every
 if (!Array.prototype.every) {
   Array.prototype.every = function(fn, ctx) {
@@ -51,7 +54,59 @@ if (!Array.prototype.filter) {
     return response
   }
 }
-// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/array/foreach
+if (!Array.prototype.find) {
+	Object.defineProperty(Array.prototype, 'find', {
+		value: function(predicate) {
+			'use strict';
+			if (this == null) {
+				throw new TypeError('Array.prototype.find called on null or undefined');
+			}
+			if (typeof predicate !== 'function') {
+				throw new TypeError('predicate must be a function');
+			}
+			var list = Object(this);
+			var length = list.length >>> 0;
+			var thisArg = arguments[1];
+			var value;
+
+			for (var i = 0; i < length; i++) {
+				value = list[i];
+				if (predicate.call(thisArg, value, i, list)) {
+					return value;
+				}
+			}
+			return undefined;
+		}
+	});
+}
+if (!Array.prototype.findIndex) {
+	Object.defineProperty(Array.prototype, 'findIndex', {
+		value: function(predicate) {
+			'use strict';
+			if (this == null) {
+				throw new TypeError('Array.prototype.findIndex called on null or undefined');
+			}
+			if (typeof predicate !== 'function') {
+				throw new TypeError('predicate must be a function');
+			}
+			var list = Object(this);
+			var length = list.length >>> 0;
+			var thisArg = arguments[1];
+			var value;
+
+			for (var i = 0; i < length; i++) {
+				value = list[i];
+				if (predicate.call(thisArg, value, i, list)) {
+					return i;
+				}
+			}
+			return -1;
+		},
+		enumerable: false,
+		configurable: false,
+		writable: false
+	});
+}// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/array/foreach
 if (!Array.prototype.forEach) {
   Array.prototype.forEach = function(fn, ctx) {
 
